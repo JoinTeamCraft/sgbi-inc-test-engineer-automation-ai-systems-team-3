@@ -1,0 +1,5 @@
+# Robot Framework execution results
+results/
+*.png
+*.xml
+*.html
