@@ -140,5 +140,20 @@ Validate Car Details Page
 
     Page Should Contain Element    xpath=//div[contains(@class,'_product-details-card-details')]
 
+Validate Car Specifications Section
+    [Documentation]    Validate that all required car specifications are visible and not empty.
+    Wait Until Page Contains Element    xpath=//div[contains(@class,'_product-card-info')]    10s
 
+    # Fuel Type
+    ${fuel}=    Get Text    xpath=//div[contains(@class,'_product-card-info')]//*[contains(text(),'Gasoline')]/following-sibling::*[1]
+    Should Not Be Empty    ${fuel}
+    # Car Type
+    ${type}=    Get Text    xpath=//div[contains(@class,'_product-card-info')]//*[contains(text(),'Car Type')]/following-sibling::*[1]
+    Should Not Be Empty    ${type}
+    # Steering
+    ${steering}=    Get Text    xpath=//div[contains(@class,'_product-card-info')]//*[contains(text(),'Steering')]/following-sibling::*[1]
+    Should Not Be Empty    ${steering}
 
+    # Seating Capacity
+    ${seats}=    Get Text    xpath=//div[contains(@class,'_product-card-info')]//*[contains(text(),'Capacity')]/following-sibling::*[1]
+    Should Not Be Empty    ${seats}
