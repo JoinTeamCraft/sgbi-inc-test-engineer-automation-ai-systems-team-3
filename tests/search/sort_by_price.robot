@@ -6,7 +6,7 @@ Library    ../../python_lib/date_utils.py
 ${PICKUP}         Palakkad
 ${DROPOFF}        Thrissur
 ${PICKUP_DATE}    Get Future Date   2
-${DROPOFF_DATE}    Get Future Date  3
+${DROPOFF_DATE}    Get Future Date  4
 ${Price}     75
 
 *** Test Cases ***
