@@ -16,3 +16,4 @@ SG-14 | Verify Sort Cars By Price
     Perform Valid Car Search    ${PICKUP}    ${DROPOFF}    ${PICKUP_DATE}    ${DROPOFF_DATE}
     Apply Price Sort    ${Price}
     Validate Price are sorted Ascending     ${Price}
+    Close Browser
