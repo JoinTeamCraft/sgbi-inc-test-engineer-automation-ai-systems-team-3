@@ -1,8 +1,12 @@
-class DateUtils:
-    """
-    Template for date utility library.
-    """
+# python_lib/date_utils.py
 
-    def get_future_date(self):
-        """Placeholder for date calculation."""
-        pass
+from datetime import datetime, timedelta
+from robot.api.deco import keyword
+
+class DateUtils:
+    """Robot Framework library for date utilities."""
+
+    @keyword
+    def get_future_date(self, days: int = 1):
+        """Return a future date as DD-MM-YYYY string"""
+        return (datetime.today() + timedelta(days=days)).strftime("%d-%m-%Y")

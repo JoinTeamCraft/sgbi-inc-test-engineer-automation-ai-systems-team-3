@@ -95,13 +95,12 @@ Apply Maximum Price Filter
     Drag And Drop By Offset    ${slider}    ${move_x}    0
 
     Click Element   xpath=//span[normalize-space()='Apply Filter']
-    Click Element   xpath=//span[normalize-space()='Apply Filter']
     Wait Until Page Contains Element    xpath=(//div[@class='_product-card_1dqfj_30'])    5s
 
-Validate Price are sorted Ascending
+Validate Prices Are Sorted Ascending
     [Arguments]    ${Price}
     [Documentation]    Capture prices on the page and verify all <= max_price and sorted ascending
-    ${price_locator}=    Set Variable    xpath=(//p[contains(@class,'_product-price_1dqfj')])[position()<=20]
+    ${price_locator}=    Set Variable    xpath=(//p[contains(@class,'_product-price_1dqfj')])
     Wait Until Page Contains Element    ${price_locator}    20s
     ${price_elements}=    Get WebElements    ${price_locator}
     @{prices}=    Create List

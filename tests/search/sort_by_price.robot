@@ -15,5 +15,5 @@ SG-14 | Verify Sort Cars By Price
     Open Browser To MoRent
     Perform Valid Car Search    ${PICKUP}    ${DROPOFF}    ${PICKUP_DATE}    ${DROPOFF_DATE}
     Apply Maximum Price Filter    ${Price}
-    Validate Price are sorted Ascending     ${Price}
+    Validate Prices are sorted Ascending     ${Price}
     Close Browser
