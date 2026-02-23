@@ -5,8 +5,8 @@ Resource          ../../resources/locators.robot
 Library           ../python_lib/date_utils.py
 
 *** Variables ***
-${PICKUP}         Kozhikode
-${DROPOFF}        Thrissur
+${PICKUP}         InvalidCity1
+${DROPOFF}        InvalidCity2
 ${PICKUP_DATE}     Get Future Date   2
 ${DROPOFF_DATE}      Get Future Date  4
 
