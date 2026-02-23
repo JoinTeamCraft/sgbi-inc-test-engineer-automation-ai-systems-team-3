@@ -122,17 +122,16 @@ Validate No Search Results Message
     Should Be Empty    ${elements}
 
 Select First Car From Results
-    Select First Car From Results
     [Documentation]    Clicks on the first available car result card.
     ${car_cards}=    Get WebElements    xpath=//div[starts-with(@class,'_product-card_')]
     Should Not Be Empty    ${car_cards}
-    Click Element    xpath=//div[starts-with(@class,'_product-card_')]//button[1]
+    Click Element    xpath=xpath=(//div[starts-with(@class,'_product-card_')])[1]//button
 
 Validate Car Details Page
     [Documentation]    Validates car details page content.
     
-    Wait Until Page Contains Element    xpath=//h1    10s
-    ${car_title}=    Get Text    xpath=//h1
+    Wait Until Page Contains Element    xpath=//div[contains(@class,'card-header')]//h1   10s
+    ${car_title}=    Get Text    xpath=//div[contains(@class,'card-header')]//h1
     Should Not Be Empty    ${car_title}
 
     Wait Until Page Contains Element    xpath=//p[contains(@class,'price')]    10s
@@ -140,6 +139,6 @@ Validate Car Details Page
     Should Not Be Empty    ${price}
 
     Page Should Contain Element    xpath=//div[contains(@class,'_product-details-card-details')]
-    
+
 
 

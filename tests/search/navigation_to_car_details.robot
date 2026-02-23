@@ -7,8 +7,8 @@ Library           ../python_lib/date_utils.py
 *** Variables ***
 ${PICKUP}          Palakkad
 ${DROPOFF}         Thrissur
-${PICKUP_DATE}     24-02-2026
-${DROPOFF_DATE}    28-02-2026
+${PICKUP_DATE}     Get Future Date   2
+${DROPOFF_DATE}    Get Future Date  4
 
 *** Test Cases ***
 SG-16 | Verify Navigation to Car Details Page
