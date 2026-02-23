@@ -159,4 +159,16 @@ Validate Car Specifications Section
     FOR    ${spec}    IN    @{specs}
         Get Specification Value    ${spec}
     END
+Validate Car Image Display
+    [Documentation]    Validate that the primary car image is visible and loaded correctly.
+    
+    # Wait for image container
+    Wait Until Page Contains Element    xpath=//div[contains(@class,'_product-image')]//img    10s
+
+    # Check visibility
+    Element Should Be Visible    xpath=//div[contains(@class,'_product-image')]//img
+
+    # Get the 'src' attribute
+    ${img_src}=    Get Element Attribute    xpath=//div[contains(@class,'_product-image')]//img    src
+    Should Not Be Empty    ${img_src}
 
