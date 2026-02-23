@@ -114,3 +114,13 @@ Validate Prices Are Sorted Ascending
     ${sorted_prices}=    Evaluate    sorted(${prices})
     Should Be Equal    ${prices}    ${sorted_prices}
 
+Validate No Search Results Message
+    [Documentation]    Validates that the search results page shows "No cars Found" when no cars match.
+    Wait Until Page Contains Element    xpath=//p[contains(@class,'noresult')]    10s
+    Element Should Contain    xpath=//p[contains(@class,'noresult')]    No Cars Found
+    ${elements}=    Get WebElements    xpath=//div[contains(@class,'_product-card_')]
+    Should Be Empty    ${elements}
+
+
+
+
