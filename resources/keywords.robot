@@ -33,17 +33,17 @@ Perform Valid Car Search
     Click Element   ${option_locator}
     Wait Until Page Contains Element    ${DROPOFF_LOCATOR}   10s
     Click Element    ${PICKUP_DATE_LOCATOR}
-    Sleep    1s
+    Wait Until Element Is Visible    ${PICKUP_DATE_LOCATOR}    5s
     Input Text       ${PICKUP_DATE_LOCATOR}    ${pickup_date}
     Press Keys        ${PICKUP_DATE_LOCATOR}    ENTER
     Wait Until Element Is Visible  ${DROPOFF_LOCATOR}      10s
     Click Element    ${DROPOFF_LOCATOR}
-    Sleep    1s
+    Wait Until Element Is Visible    ${DROPOFF_LOCATOR}    5s
     ${locator}=    Set Variable    xpath=(//div[@title='${dropoff}'])[last()]
     Wait Until Element Is Visible    ${locator}    10s
     Click Element    ${locator}
     Click Element    ${DROPOFF_DATE_LOCATOR}
-    Sleep    1s
+    Wait Until Element Is Visible    ${DROPOFF_DATE_LOCATOR}    5s
     Input Text      ${DROPOFF_DATE_LOCATOR}    ${dropoff_date}
     Press Keys        ${DROPOFF_DATE_LOCATOR}    ENTER
     Click Element    ${SEARCH_LOCATOR}
@@ -57,10 +57,11 @@ Apply Car Type Filter
     Wait Until Page Contains Element    xpath=(//div[@class='_product-card_1dqfj_30'])    5s
 Validate Filtered Results
     [Arguments]    ${car_type}
-    ${locator}=    Set Variable    xpath=(//h4[@class='_product-card-header-subtitle_1dqfj_56'][normalize-space()='${car_type}'])[position()<=20]
-    Wait Until Page Contains Element    ${locator}    20s    
+    ${locator}=    Set Variable    xpath=(//h4[@class='_product-card-header-subtitle_1dqfj_56'])[position()<=20]
+    Wait Until Page Contains Element    ${locator}    20s
     ${elements}=    Get WebElements    ${locator}
-        FOR    ${element}    IN    @{elements}
-            ${text}=    Get Text    ${element}
-            Should Contain    ${text}    ${car_type}
-        END
+    FOR    ${element}    IN    @{elements}
+        ${text}=    Get Text    ${element}
+        ${text}=    Strip String    ${text}
+        Should Be Equal As Strings    ${text}    ${car_type}
+    END
