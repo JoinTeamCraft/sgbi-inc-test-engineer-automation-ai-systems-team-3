@@ -14,6 +14,6 @@ SG-14 | Verify Sort Cars By Price
     [Tags]    SG-14
     Open Browser To MoRent
     Perform Valid Car Search    ${PICKUP}    ${DROPOFF}    ${PICKUP_DATE}    ${DROPOFF_DATE}
-    Apply Price Sort    ${Price}
+    Apply Maximum Price Filter    ${Price}
     Validate Price are sorted Ascending     ${Price}
     Close Browser

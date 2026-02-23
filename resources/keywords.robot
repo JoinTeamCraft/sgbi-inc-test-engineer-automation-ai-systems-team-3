@@ -67,10 +67,10 @@ Validate Filtered Results
         Should Be Equal As Strings    ${text}    ${car_type}
     END
 
-Apply Price Sort
+Apply Maximum Price Filter
     [Arguments]    ${Price}
     Scroll Element Into View    xpath=//span[normalize-space()='Apply Filter']
-    Sleep      2s
+    Wait Until Element Is Visible    xpath=//div[contains(@class,'ant-slider-handle')]      10s
     ${slider}=        Get WebElement    xpath=//div[contains(@class,'ant-slider-handle')]
     ${slider_bar}=    Get WebElement    xpath=//div[contains(@class,'ant-slider-rail')]
     # Get min, max, current values  //p[contains(@class,'_product-price_1dqfj')]
