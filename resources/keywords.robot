@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Template for reusable keywords
 Library           SeleniumLibrary
+Library           Collections
 Resource          locators.robot
 
 *** Variables ***
@@ -65,3 +66,52 @@ Validate Filtered Results
         ${text}=    Strip String    ${text}
         Should Be Equal As Strings    ${text}    ${car_type}
     END
+
+Apply Price Sort
+    [Arguments]    ${Price}
+    Scroll Element Into View    xpath=//span[normalize-space()='Apply Filter']
+    Sleep      2s
+    ${slider}=        Get WebElement    xpath=//div[contains(@class,'ant-slider-handle')]
+    ${slider_bar}=    Get WebElement    xpath=//div[contains(@class,'ant-slider-rail')]
+    # Get min, max, current values  //p[contains(@class,'_product-price_1dqfj')]
+    ${min}=        Get Element Attribute    ${slider}    aria-valuemin
+    ${max}=        Get Element Attribute    ${slider}    aria-valuemax
+    ${current}=    Get Element Attribute    ${slider}    aria-valuenow
+    ${min}=        Convert To Integer    ${min}
+    ${max}=        Convert To Integer    ${max}
+    ${current}=    Convert To Integer    ${current}
+    ${target}=     Convert To Integer    ${Price}
+    # Get slider width
+    ${width}    ${height}=    Get Element Size    ${slider_bar}    
+    # Convert target to percentage
+    ${target_percent}=    Evaluate    (${target} - ${min}) / (${max} - ${min})
+    # Convert to pixel offset
+    ${target_pixel}=      Evaluate    int(${width} * ${target_percent})
+    # Convert current to pixel
+    ${current_percent}=   Evaluate    (${current} - ${min}) / (${max} - ${min})
+    ${current_pixel}=     Evaluate    int(${width} * ${current_percent})
+    # Calculate movement needed
+    ${move_x}=    Evaluate    ${target_pixel} - ${current_pixel}
+    Drag And Drop By Offset    ${slider}    ${move_x}    0
+
+    Click Element   xpath=//span[normalize-space()='Apply Filter']
+    Click Element   xpath=//span[normalize-space()='Apply Filter']
+    Wait Until Page Contains Element    xpath=(//div[@class='_product-card_1dqfj_30'])    5s
+
+Validate Price are sorted Ascending
+    [Arguments]    ${Price}
+    [Documentation]    Capture prices on the page and verify all <= max_price and sorted ascending
+    ${price_locator}=    Set Variable    xpath=(//p[contains(@class,'_product-price_1dqfj')])[position()<=20]
+    Wait Until Page Contains Element    ${price_locator}    20s
+    ${price_elements}=    Get WebElements    ${price_locator}
+    @{prices}=    Create List
+    FOR    ${element}    IN    @{price_elements}
+        ${text}=    Get Text    ${element}
+         ${clean}=    Evaluate    float('${text}'.split()[0].replace('$',''))
+        Run Keyword If    ${clean} > ${Price}    Fail    Price ${clean} exceeds maximum allowed ${Price}
+        Append To List    ${prices}    ${clean}
+    END
+
+    ${sorted_prices}=    Evaluate    sorted(${prices})
+    Should Be Equal    ${prices}    ${sorted_prices}
+
